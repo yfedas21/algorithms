@@ -4,8 +4,7 @@ primes = [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
         43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
 # function that will find the sum
-# @list: the list of primes
-# @num: the sum we're looking for
+# @num_to_find: the sum we're looking for
 def find_sum(num_to_find):
     # variable to keep track of whether the input was found
     found = False
