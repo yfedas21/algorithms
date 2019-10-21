@@ -19,6 +19,7 @@ count = 0
 
 # ******************************************
 
+# &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 # INPUT matrices
 # columns:       a  b  c  d  e  f  g  h  i  j
 first_matrix = [[0, 0, 1, 1, 1, 0, 0, 0, 0, 0], # a
@@ -31,23 +32,32 @@ first_matrix = [[0, 0, 1, 1, 1, 0, 0, 0, 0, 0], # a
                 [0, 0, 0, 0, 0, 0, 1, 0, 1, 0], # h
                 [0, 0, 0, 0, 0, 0, 0, 1, 0, 1], # i
                 [0, 0, 0, 0, 0, 0, 1, 0, 1, 0]] # j
-    
-# the output list of vertices, always start with 'a'
-queue = []      # remember to add 'a' 
-	
+
+# columns: 			 a  b  c  d  e  f  g  h
+second_matrix =    [[0, 1, 0, 0, 1, 0, 0, 0], # a
+					[1, 0, 1, 0, 0, 1, 0, 0], # b
+					[0, 1, 0, 1, 0, 0, 1, 0], # c
+					[0, 0, 1, 0, 0, 0, 0, 1], # d
+					[1, 0, 0, 0, 0, 1, 0, 0], # e
+					[0, 1, 0, 0, 1, 0, 1, 0], # f
+					[0, 0, 1, 0, 0, 1, 0, 1], # g
+					[0, 0, 0, 1, 0, 0, 1, 0]] # h
+# &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
 # This is a function that will get the adjacency 
 # list of a certain row 
 # @vertex: the index of the vertex (ie a = 0)
+# @matrix: the matrix to get row from
 # @return: a queue of indices
-def get_row(vertex):
+def get_row(vertex, matrix):
 	# initialize the queue that will be returned
 	temp_queue = []
 	
 	# read the values from the specific row
 	for row in range(vertex, vertex + 1): 
-		for col in range(0, len(first_matrix[vertex])):
+		for col in range(len(matrix[vertex])):
 			# if there is an edge between vertices...
-			if (first_matrix[row][col] == 1):
+			if (matrix[row][col] == 1):
 				# get the name of the adjacent vertex
 				temp_queue.append(col)
 	
@@ -55,34 +65,49 @@ def get_row(vertex):
 
 # the bulk of the work is done here
 # @vertex: the index to run BFS on
-def BFS(vertex):
+def BFS(vertex, matrix):
 	global count	# access global variable
 	count += 1
 	found[vertex] = count
 	temp_queue = [vertex]
 
 	while (len(temp_queue) != 0):
-		adj = get_row(temp_queue[0])		# adj holds adj list of param vertex
-		for w in range(0, len(adj)):
+		adj = get_row(temp_queue[0], matrix)		# adj holds adj list of param vertex
+		for w in range(len(adj)):
 			if (found[adj[w]] == 0):
 				count += 1
 				found[adj[w]] = count
 				temp_queue.append(adj[w])
 		del temp_queue[0] 	# remove the front item w/o returning it
-	
-def main():
-	for v in range(0, len(found)):
-		if (found[v] == 0):
-			BFS(v)
 
-	# order the final output and print vertices
-	# in the order they were found
-	final_list = []
-	for i in range(0, len(found)):
-		final_list.insert(found[i] - 1, V.get(i))
+def main():
+	# change global variables
+	global found
+	global count
+
+	# run the test for first_matrix
+	for v in range(len(found)):
+		if (found[v] == 0):
+			BFS(v, first_matrix)
 	
-	print(found)
-	print(final_list)
+	final_list = []
+	for i in range(len(found)):
+		final_list.insert(found[i] - 1, V.get(i))
+	print("output for first_matrix: ", final_list)
+
+	# reset the found and final lists to all 0's again
+	found = [0, 0, 0, 0, 0, 0, 0, 0]
+	count = 0
+	
+	# run the test for second_matrix
+	for v in range(len(found)):
+		if (found[v] == 0):
+			BFS(v, second_matrix)
+
+	final_list = []
+	for i in range(len(found)):
+		final_list.insert(found[i] - 1, V.get(i))
+	print("output for second_matrix: ", final_list)
 	
 if __name__ == "__main__":
 	main()
