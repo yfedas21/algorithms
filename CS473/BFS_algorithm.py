@@ -74,11 +74,14 @@ def main():
 	for v in range(0, len(found)):
 		if (found[v] == 0):
 			BFS(v)
-	
+
+	# order the final output and print vertices
+	# in the order they were found
 	final_list = []
 	for i in range(0, len(found)):
-		final_list.append(V.get(found[i]))
+		final_list.insert(found[i] - 1, V.get(i))
 	
+	print(found)
 	print(final_list)
 	
 if __name__ == "__main__":
