@@ -5,6 +5,7 @@ This repository will be a place I can store different algorithms I work on for C
 + [Sieve of Eratosthenes](https://github.com/yfedas21/algorithms/blob/master/CS473/sieve.py "what the huh")
 + [BFS](https://github.com/yfedas21/algorithms/blob/master/CS473/BFS_algorithm.py "bad breadth")
 + [DFS](https://github.com/yfedas21/algorithms/blob/master/CS473/DFS_algorithm.py "shallow grave")
++ [Merge Sort](https://github.com/yfedas21/algorithms/blob/master/CS473/merge_sort.py "mseorrgte")
 
 #### List of algorithms from MA360
 + A cool linear [solution](https://github.com/yfedas21/algorithms/blob/master/MA360/find_sums_from_primes.py "do your own hw") to an exercise from *A Friendly Introduction to Number Theory* by Silverman.
