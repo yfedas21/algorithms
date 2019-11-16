@@ -10,6 +10,17 @@
 # 
 # Technique: Divide and Conquer
 
+# @input two array elements
+# @return input in nondecreasing order
+def swap(a, b):
+    if (a <= b): 
+        return([a, b])
+    else: 
+        return([b, a])
+
+# the crux of the program
+# @input the array to sort
+# @return the sorted array
 def merge_sort(A): 
     # stores the length of the input array
     # for easy reuse (assumes len(A) is power of 2)
@@ -23,42 +34,58 @@ def merge_sort(A):
     if len(A) > 2: 
         # copy first half of A into B
         # and second half into C
-        for i in range(ln):
-            B.append(A[i])
-            C.append(A[i + ln])
+        B = A[:ln]
+        C = A[ln:]
+
+        print("B is ", B, ", C is ", C)
 
         # call mergesort recursively
         while len(B) > 1:
-            sub_B = merge_sort(B)
+            return(merge_sort(B))
         while len(C) > 1: 
-            sub_C = merge_sort(C)
+            return(merge_sort(C))
 
-    # len(A) is < 2
+    # len(A) = 2
     else: 
         # swap the elements
-        if A[0] > A[1]: 
-            temp = A[0]; A[0] = A[1]; A[1] = temp
-        # already in order
-        return A
-    
-    merge(B, C, A)
+        print("swap : ",swap(A[0],A[1]))
+        #return(swap(A[0],A[1]))
+        merge(B, C, A)
 
 # merge two already sorted sub-arrays
+# @input sorted sub-arrays to merge
+# @return the merged sorted array 
+#         of length |A| = |B| + |C| 
 def merge(B, C, A): 
     print("DEBUG: merge() reachable")
+    # initialize i, j, k to 0
     i, j, k = (0 for _ in range(3))
+
+    # conditional while for merging
     while i < len(B) and j < len(C):
+        # check if the value in B is 
+        # less than the current value in C;
+        # if so, copy to same location in A
         if B[i] <= C[j]:
+            print("merging ",str(A[k])," and ",str(B[i]),"...")
             A[k] = B[i]; i+=1
+            print("A is now: ",A,"\n\n\n")
         else: 
+            print("merging ",str(A[k])," and ",str(C[j]),"...")
             A[k] = C[j]; j+=1
+            print("A is now: ",A,"\n\n\n")
+        # increment the index for A[]
         k+=1
+    # all elements in list B merged into A, 
+    # copy the rest of sorted list C into A
     if i == len(B):
         # copy C[j..q −1]to A[k..p+q −1]
         pass
     else: 
         # copy B[i..p−1]to A[k..p+q −1]
         pass
+
+    print("The final ordering of A is ", A)
 
 # driver for the program
 def main(): 
@@ -68,7 +95,7 @@ def main():
     # sample
     #merge_sort(in_1)
     #merge_sort(in_2)
-    merge(3, 2, 1)
+    merge([1,3],[2,4],[0, 0, 0, 0])
 
 # code driver, tells the interpreter
 # starting point for execution
